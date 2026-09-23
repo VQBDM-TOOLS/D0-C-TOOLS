@@ -5,56 +5,140 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Client Download — V3 Tools</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#0b1020;color:#eef2ff;min-height:100vh}
-.wrap{max-width:980px;margin:auto;padding:48px 20px}
-.hero{text-align:center;margin-bottom:38px}.badge{display:inline-block;padding:7px 12px;border:1px solid #334155;border-radius:999px;color:#93c5fd;font-size:13px;margin-bottom:14px}
-h1{font-size:38px;margin:0 0 12px}.hero p{color:#a8b1c7;margin:0 auto;max-width:650px;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-.card{background:#121a2e;border:1px solid #26324d;border-radius:18px;padding:24px;box-shadow:0 15px 40px rgba(0,0,0,.2)}
-.icon{width:52px;height:52px;border-radius:14px;background:#1e293b;display:grid;place-items:center;font-weight:800;font-size:20px;color:#93c5fd}
-h2{margin:18px 0 8px;font-size:22px}.version{color:#94a3b8;font-size:13px;margin-bottom:18px}
-ul{padding-left:20px;color:#cbd5e1;line-height:1.8;min-height:105px}
-.btn{display:block;text-align:center;text-decoration:none;background:#2563eb;color:#fff;padding:13px 16px;border-radius:10px;font-weight:700}
-.btn:hover{background:#1d4ed8}
-.note{margin-top:28px;padding:16px;border:1px solid #26324d;border-radius:14px;color:#a8b1c7;font-size:14px;line-height:1.6}
-footer{text-align:center;color:#64748b;font-size:12px;margin-top:35px}
+:root{
+  --bg:#070b16;--panel:#101827;--panel2:#0c1322;--border:#26344f;
+  --text:#f8fafc;--muted:#9aa8bd;--blue:#3b82f6;--blue2:#60a5fa;
+  --danger:#f87171;--danger-bg:rgba(239,68,68,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(59,130,246,.16),transparent 34%),
+    radial-gradient(circle at 85% 10%,rgba(99,102,241,.10),transparent 30%),
+    var(--bg);
+  color:var(--text);min-height:100vh;
+}
+.wrap{max-width:1080px;margin:auto;padding:54px 22px 34px}
+.hero{text-align:center;margin-bottom:34px}
+.brand{
+  display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid #30415f;
+  background:rgba(16,24,39,.75);border-radius:999px;color:#bfdbfe;font-size:12px;
+  font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+}
+.brand-dot{width:8px;height:8px;border-radius:50%;background:#60a5fa;box-shadow:0 0 14px #60a5fa}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.05;margin:20px 0 12px;letter-spacing:-.035em}
+.hero p{max-width:700px;margin:auto;color:var(--muted);line-height:1.7;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{
+  position:relative;background:linear-gradient(180deg,rgba(16,24,39,.98),rgba(12,19,34,.98));
+  border:1px solid var(--border);border-radius:20px;padding:25px;
+  box-shadow:0 18px 55px rgba(0,0,0,.24);overflow:hidden;
+}
+.card:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#3b82f6,#818cf8)}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.icon{
+  width:54px;height:54px;border-radius:15px;display:grid;place-items:center;
+  background:rgba(59,130,246,.11);border:1px solid rgba(96,165,250,.22);
+  color:#bfdbfe;font-size:12px;font-weight:900;letter-spacing:.04em;
+}
+.status{font-size:11px;color:#86efac;background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.2);padding:6px 9px;border-radius:999px;font-weight:800}
+h2{margin:19px 0 7px;font-size:22px;letter-spacing:-.02em}
+.version{color:#7f8da4;font-size:12px;margin-bottom:16px}
+ul{padding-left:19px;color:#cbd5e1;line-height:1.8;min-height:116px;margin:0 0 18px}
+li::marker{color:#60a5fa}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none;
+  background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;padding:13px 16px;border-radius:11px;
+  font-weight:800;font-size:14px;border:1px solid rgba(147,197,253,.2);
+  transition:.2s ease;box-shadow:0 8px 24px rgba(37,99,235,.22)
+}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.08);box-shadow:0 12px 28px rgba(37,99,235,.3)}
+.warning{
+  margin-top:22px;padding:18px 20px;border-radius:15px;border:1px solid rgba(248,113,113,.28);
+  background:linear-gradient(180deg,var(--danger-bg),rgba(127,29,29,.035));display:flex;gap:14px;align-items:flex-start;
+}
+.warning-icon{width:34px;height:34px;flex:0 0 34px;border-radius:10px;display:grid;place-items:center;
+  color:#fecaca;background:rgba(239,68,68,.12);border:1px solid rgba(248,113,113,.2);font-weight:900}
+.warning strong{display:block;color:#fecaca;font-size:14px;margin-bottom:5px}
+.warning p{margin:0;color:#cbd5e1;font-size:13px;line-height:1.65}
+.install{
+  margin-top:20px;padding:19px 20px;border:1px solid var(--border);border-radius:15px;
+  background:rgba(16,24,39,.62);color:#aebbd0;font-size:13px;line-height:1.7
+}
+.install strong{color:#e2e8f0}
+.steps{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.step{padding:6px 9px;border-radius:8px;background:#0a1220;border:1px solid #22304a;color:#cbd5e1;font-size:12px}
+footer{text-align:center;color:#66758c;font-size:12px;margin-top:30px;padding-top:18px;border-top:1px solid rgba(38,52,79,.65)}
+@media(max-width:720px){
+  .wrap{padding:35px 16px 25px}.grid{grid-template-columns:1fr}.card{padding:21px}
+  ul{min-height:auto}.hero{margin-bottom:25px}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-<section class="hero">
-<div class="badge">CLIENT DOWNLOAD CENTER</div>
-<h1>V3 Tools</h1>
-<p>Download installer ZIP resmi untuk client. Pilih tools yang sesuai dengan kebutuhan Anda.</p>
-</section>
-<section class="grid">
-<article class="card">
-<div class="icon">S</div>
-<h2>Scraper Tools V3</h2>
-<div class="version">Version 3.2.0</div>
-<ul>
-<li>Chrome Extension Manifest V3</li>
-<li>Side Panel interface</li>
-<li>License server validation</li>
-<li>Distribusi dalam format ZIP</li>
-</ul>
-<a class="btn" href="Scraper-Tools-V3.zip" download>Download Scraper Tools V3</a>
-</article>
-<article class="card">
-<div class="icon">SMS</div>
-<h2>SMS Tools V3</h2>
-<div class="version">Version 3.1.1</div>
-<ul>
-<li>Chrome Extension Manifest V3</li>
-<li>Case & Contact tools</li>
-<li>SMS sender features</li>
-<li>License server validation</li>
-</ul>
-<a class="btn" href="SMS-Tools-V3.zip" download>Download SMS Tools V3</a>
-</article>
-</section>
-<div class="note"><strong>Cara instal:</strong> Download ZIP → ekstrak file → buka <b>chrome://extensions</b> → aktifkan <b>Developer mode</b> → pilih <b>Load unpacked</b> → pilih folder hasil ekstrak.</div>
-<footer>V3 Tools • Client Download Center</footer>
+  <section class="hero">
+    <div class="brand"><span class="brand-dot"></span> Official Client Download Center</div>
+    <h1>V3 Tools</h1>
+    <p>Portal download resmi untuk Tools khusus Bucket Non Keterlambatan. Pilih tools yang sesuai kebutuhan dan gunakan akses sesuai tanggung jawab akun masing-masing.</p>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <div class="top">
+        <div class="icon">SCRAPER</div>
+        <div class="status">● READY</div>
+      </div>
+      <h2>Scraper Tools V3</h2>
+      <div class="version">Version 3.2.0 • Chrome Extension Manifest V3</div>
+      <ul>
+        <li>Side Panel interface</li>
+        <li>License server validation</li>
+        <li>Distribusi dalam format ZIP</li>
+        <li>Antarmuka untuk proses scraping</li>
+      </ul>
+      <a class="btn" href="Scraper-Tools-V3.zip" download>↓ &nbsp;Download Scraper Tools V3</a>
+    </article>
+
+    <article class="card">
+      <div class="top">
+        <div class="icon">SMS</div>
+        <div class="status">● READY</div>
+      </div>
+      <h2>SMS Tools V3</h2>
+      <div class="version">Version 3.1.1 • Chrome Extension Manifest V3</div>
+      <ul>
+        <li>Case &amp; Contact tools</li>
+        <li>SMS sender features</li>
+        <li>License server validation</li>
+        <li>Distribusi dalam format ZIP</li>
+      </ul>
+      <a class="btn" href="SMS-Tools-V3.zip" download>↓ &nbsp;Download SMS Tools V3</a>
+    </article>
+  </section>
+
+  <section class="warning">
+    <div class="warning-icon">!</div>
+    <div>
+      <strong>PERINGATAN PENGGUNAAN DATA</strong>
+      <p>Developer tidak bertanggung jawab atas penyalahgunaan data apapun. Pakai sesuai dengan penanggung jawab akun masing-masing.</p>
+    </div>
+  </section>
+
+  <section class="install">
+    <strong>Petunjuk instalasi</strong>
+    <div class="steps">
+      <span class="step">1. Download ZIP</span>
+      <span class="step">2. Ekstrak file</span>
+      <span class="step">3. Buka chrome://extensions</span>
+      <span class="step">4. Aktifkan Developer mode</span>
+      <span class="step">5. Load unpacked</span>
+      <span class="step">6. Pilih folder hasil ekstrak</span>
+    </div>
+  </section>
+
+  <footer>V3 Tools • Client Download Center • Gunakan dengan bijak dan sesuai kewenangan akun</footer>
 </div>
 </body>
 </html>
